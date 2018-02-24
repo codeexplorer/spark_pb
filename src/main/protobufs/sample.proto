@@ -1,0 +1,27 @@
+syntax = "proto2";
+package com.codeexplorer.sparkpb;
+
+message SubMetric {
+    optional uint64 smid = 1;
+    enum violation_type_t {
+        NON_COMPLIANT = 0;
+        COMPLIANT = 1;
+    }
+    optional violation_type_t violation_type = 2;
+    enum metric_reason_t
+    {
+        REASON_1 = 1;
+        REASON_2= 2;
+        REASON_3 = 3;
+        REASON_4 = 4;
+    }
+    optional metric_reason_t metric_reason = 3;
+    optional uint64 value = 4;
+    optional uint64 timestamp = 5;
+    optional uint64 session_cnt = 6;
+}
+
+message Metric {
+    required string cid = 1;
+    repeated SubMetric submetric = 2;
+}
