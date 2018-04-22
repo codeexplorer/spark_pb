@@ -64,8 +64,11 @@ object sparkPB {
 
     //How to make the following work with injection
     val byteDF = spark.sparkContext.parallelize(Seq(ArrayByteTimestamp(timestamp, metricBytes))).toDF("timestamp","byteArray").as[ArrayByteTimestamp]
+    
     import frameless.syntax._
     val byteMetric:TypedDataset[MetricTimestamp] = TypedDataset.create(byteDF.rdd.map(el=> MetricTimestamp(el.timestamp, Metric.parseFrom(el.byteArray))))
-    byteMetric.toDF.show
+    byteMetric.show().run()
+
+    spark.stop()
   }
 }
