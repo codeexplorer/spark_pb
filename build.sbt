@@ -6,6 +6,8 @@ organization := "com.codeexplorer.sparkpb"
 scalaVersion := "2.11.11"
 val sparkVersion = "2.2.1"
 val scalaPbVersion = "0.7.0"
+val pureConfig = "0.6.0"
+val framelessVersion = "0.5.1"
 
 val excludeScalaLang = ExclusionRule(organization = "org.scala-lang")
 val excludeNettyIo = ExclusionRule(organization = "org.jboss.netty")
@@ -29,7 +31,7 @@ libraryDependencies ++= Seq(
   ),
   "com.thesamet.scalapb" %% "scalapb-runtime" % scalaPbVersion,
   "com.thesamet.scalapb" %% "sparksql-scalapb" % "0.7.0",
-  "org.typelevel" %% "frameless-dataset" % "0.5.0"
+  "org.typelevel" %% "frameless-dataset" % framelessVersion
 )
 
 PB.protoSources.in(Compile) := Seq(sourceDirectory.in(Compile).value / "protobufs")
