@@ -57,13 +57,14 @@ object sparkPB {
     // But typed dataset passes
     val metricTDS = TypedDataset.create(Seq(metric))
     metricTDS.toDF.show
-    
+
     // Try to Construct metric from byteArray
     val metricBytes = metric.toByteArray
     val timestamp = new Timestamp(10000000000L)
 
     //How to make the following work with injection
     val byteDF = spark.sparkContext.parallelize(Seq(ArrayByteTimestamp(timestamp, metricBytes))).toDF("timestamp","byteArray").as[ArrayByteTimestamp]
+    import frameless.syntax._
     val byteMetric:TypedDataset[MetricTimestamp] = TypedDataset.create(byteDF.rdd.map(el=> MetricTimestamp(el.timestamp, Metric.parseFrom(el.byteArray))))
     byteMetric.toDF.show
   }
